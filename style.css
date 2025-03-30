@@ -58,8 +58,8 @@ p{
 @media (max-width: 600px){
     .navbar{
         height: 70px;
-        width: 360px;
-        padding: 5px;
+        width: 370px;
+        /* padding: 5px; */
         background-color: rgb(249, 240, 240);
         color: rgb(78, 54, 54);
         position: sticky;
@@ -75,7 +75,7 @@ p{
     a{
         text-decoration: none;
         color: rgb(78, 54, 54);
-        padding: 15px;
+        padding: 10px;
     }
     .image1{
         height: 150px;
