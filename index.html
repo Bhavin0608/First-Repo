@@ -1,75 +1,1081 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Nav-Bar</title>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEPP – Agile Methodology | Complete Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f1a;
+    --surface: #13162a;
+    --surface2: #1a1f38;
+    --border: #252a4a;
+    --accent: #4f8ef7;
+    --accent2: #a78bfa;
+    --accent3: #34d399;
+    --accent4: #fb923c;
+    --accent5: #f472b6;
+    --text: #e2e8f0;
+    --muted: #8892b0;
+    --heading: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  /* HEADER */
+  .hero {
+    background: linear-gradient(135deg, #0d0f1a 0%, #13162a 40%, #1a1238 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(79,142,247,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(167,139,250,0.10) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; position: relative; }
+  .badge {
+    display: inline-block; background: rgba(79,142,247,0.15);
+    border: 1px solid rgba(79,142,247,0.35); color: var(--accent);
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; padding: 4px 14px;
+    border-radius: 20px; margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800; color: var(--heading); line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p { color: var(--muted); font-size: 16px; max-width: 600px; }
+  .toc-grid {
+    max-width: 900px; margin: 40px auto 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px;
+  }
+  .toc-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 16px; cursor: pointer;
+    text-decoration: none; color: var(--text); font-size: 13px;
+    font-weight: 500; transition: all 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .toc-item:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .toc-item .num {
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    color: var(--accent); opacity: 0.7; min-width: 20px;
+  }
+
+  /* MAIN */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* SECTION */
+  .section {
+    margin-top: 56px; padding-top: 8px;
+    border-top: 2px solid var(--border);
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 28px;
+  }
+  .section-num {
+    font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; color: var(--accent); opacity: 0.6;
+    text-transform: uppercase;
+  }
+  .section h2 {
+    font-family: 'Syne', sans-serif; font-size: 1.6rem;
+    font-weight: 800; color: var(--heading);
+  }
+  .section h2 .chip {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 6px;
+    margin-left: 12px; vertical-align: middle;
+  }
+  .chip-blue { background: rgba(79,142,247,0.15); color: var(--accent); }
+  .chip-purple { background: rgba(167,139,250,0.15); color: var(--accent2); }
+  .chip-green { background: rgba(52,211,153,0.15); color: var(--accent3); }
+  .chip-orange { background: rgba(251,146,60,0.15); color: var(--accent4); }
+  .chip-pink { background: rgba(244,114,182,0.15); color: var(--accent5); }
+
+  /* CARDS */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px 24px; margin-bottom: 16px;
+  }
+  .card h3 {
+    font-family: 'Syne', sans-serif; font-size: 1rem;
+    font-weight: 700; color: var(--heading); margin-bottom: 10px;
+  }
+  .card p, .card li { color: var(--text); font-size: 14.5px; }
+  .card ul, .card ol { padding-left: 18px; }
+  .card li { margin-bottom: 5px; }
+
+  /* KEY CONCEPT HIGHLIGHT */
+  .highlight {
+    background: linear-gradient(135deg, rgba(79,142,247,0.08), rgba(167,139,250,0.06));
+    border: 1px solid rgba(79,142,247,0.25);
+    border-left: 4px solid var(--accent);
+    border-radius: 10px; padding: 16px 20px; margin-bottom: 16px;
+  }
+  .highlight.green { border-left-color: var(--accent3); background: rgba(52,211,153,0.06); border-color: rgba(52,211,153,0.2); border-left: 4px solid var(--accent3); }
+  .highlight.orange { border-left-color: var(--accent4); background: rgba(251,146,60,0.06); border-color: rgba(251,146,60,0.2); border-left: 4px solid var(--accent4); }
+  .highlight.purple { border-left-color: var(--accent2); background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.2); border-left: 4px solid var(--accent2); }
+  .highlight.pink { border-left-color: var(--accent5); background: rgba(244,114,182,0.06); border-color: rgba(244,114,182,0.2); border-left: 4px solid var(--accent5); }
+  .highlight strong { color: var(--heading); }
+
+  /* GRID */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 16px; }
+  @media(max-width:600px) { .grid2,.grid3 { grid-template-columns: 1fr; } }
+
+  /* COMPARISON TABLE */
+  .table-wrap { overflow-x: auto; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th {
+    background: var(--surface2); color: var(--accent);
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    letter-spacing: 0.5px; padding: 11px 14px; text-align: left;
+    border-bottom: 2px solid var(--border);
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* PRINCIPLES NUMBERED */
+  .principle {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 12px 16px; border-radius: 10px; margin-bottom: 8px;
+    background: var(--surface); border: 1px solid var(--border);
+  }
+  .p-num {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem;
+    color: var(--accent); min-width: 30px; line-height: 1.5;
+  }
+  .p-text { color: var(--text); font-size: 14px; line-height: 1.6; }
+  .p-text strong { color: var(--heading); }
+
+  /* PHASE FLOW */
+  .phase-flow { display: flex; gap: 0; margin-bottom: 16px; flex-wrap: wrap; }
+  .phase-box {
+    flex: 1; min-width: 120px; padding: 14px 16px;
+    background: var(--surface); border: 1px solid var(--border);
+    position: relative; text-align: center;
+  }
+  .phase-box:not(:last-child)::after {
+    content: '→';
+    position: absolute; right: -10px; top: 50%; transform: translateY(-50%);
+    color: var(--accent); font-size: 16px; z-index: 1;
+  }
+  .phase-box h4 {
+    font-family: 'Syne', sans-serif; font-size: 12px;
+    font-weight: 700; color: var(--accent); text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 5px;
+  }
+  .phase-box p { font-size: 12px; color: var(--muted); }
+
+  /* MANIFESTO HIGHLIGHT */
+  .manifesto {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 0;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden; margin-bottom: 16px;
+  }
+  .m-side { padding: 20px; }
+  .m-left { border-right: 1px solid var(--border); }
+  .m-label {
+    font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .m-left .m-label { color: var(--accent3); }
+  .m-right .m-label { color: var(--muted); }
+  .m-item { font-size: 13.5px; padding: 6px 0; color: var(--text); }
+  .m-center {
+    display: flex; align-items: center; padding: 0 16px;
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    color: var(--accent); text-align: center; writing-mode: vertical-rl;
+    letter-spacing: 2px;
+  }
+
+  /* MEMORY TIP */
+  .memory {
+    background: linear-gradient(135deg, rgba(251,146,60,0.1), rgba(244,114,182,0.05));
+    border: 1px dashed rgba(251,146,60,0.4);
+    border-radius: 10px; padding: 14px 18px; margin-top: 12px;
+    font-size: 13.5px;
+  }
+  .memory::before { content: '🧠 '; }
+  .memory strong { color: var(--accent4); }
+
+  /* TAG PILLS */
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag {
+    font-size: 11.5px; font-weight: 500; padding: 3px 10px;
+    border-radius: 20px; background: var(--surface2); color: var(--muted);
+    border: 1px solid var(--border);
+  }
+
+  /* ROLES */
+  .role-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 18px; margin-bottom: 8px;
+    display: flex; gap: 12px;
+  }
+  .role-icon { font-size: 1.3rem; min-width: 28px; }
+  .role-name {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 13px; color: var(--heading); margin-bottom: 3px;
+  }
+  .role-desc { font-size: 13px; color: var(--muted); }
+
+  /* WASTE TABLE */
+  .waste-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 9px 14px; border-radius: 8px; margin-bottom: 6px;
+    background: var(--surface); border-left: 3px solid var(--accent);
+  }
+  .waste-num { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--accent); min-width: 22px; }
+  .waste-text strong { color: var(--heading); display: block; font-size: 13.5px; }
+  .waste-text span { color: var(--muted); font-size: 12.5px; }
+
+  /* STICKY NOTE EFFECT */
+  .sticky-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .sticky {
+    flex: 1; min-width: 140px;
+    background: var(--surface2); border-radius: 8px;
+    padding: 14px; border-top: 3px solid var(--accent);
+    font-size: 13px; color: var(--text);
+  }
+  .sticky.green { border-top-color: var(--accent3); }
+  .sticky.purple { border-top-color: var(--accent2); }
+  .sticky.orange { border-top-color: var(--accent4); }
+  .sticky.pink { border-top-color: var(--accent5); }
+  .sticky strong { display: block; font-family: 'Syne', sans-serif; font-weight: 700; color: var(--heading); font-size: 12px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); margin-top: 60px; }
+</style>
 </head>
 <body>
-    <div class="navbar">
-        <ul class="links">
-            <li><a href="">Home</a></li>
-            <li><a href="">Explore</a></li>
-            <li><a href="">Contact Us</a></li>
-            <li><a href="">About Us</a></li>
-        </ul>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="badge">DDU · CE · Semester IV · SEPP</div>
+    <h1>Agile Methodology<br><span>Complete Study Guide</span></h1>
+    <p>Everything from your 146-page PDF — organised, simplified, and exam-ready. All 7 topics covered in depth.</p>
+    <div class="toc-grid">
+      <a class="toc-item" href="#s1"><span class="num">01</span> Agile Basics</a>
+      <a class="toc-item" href="#s2"><span class="num">02</span> XP (Extreme Programming)</a>
+      <a class="toc-item" href="#s3"><span class="num">03</span> Scrum</a>
+      <a class="toc-item" href="#s4"><span class="num">04</span> ASD</a>
+      <a class="toc-item" href="#s5"><span class="num">05</span> DSDM</a>
+      <a class="toc-item" href="#s6"><span class="num">06</span> FDD</a>
+      <a class="toc-item" href="#s7"><span class="num">07</span> Lean (LSD)</a>
     </div>
-    <div class="Topic1">
-        <div class="content1">
-            <h1>Lise Meitner & Nuclear Fission – A portrait of Lise Meitner, possibly with atomic models or a nuclear fission diagram.</h1><br>
-        </div>
-        <div class="content">
-        <div>
-            <img src="Topic1.webp" alt="Topic1" class="image1">
-        </div>
-        <div class="content1">
-            <!-- <h1>Lise Meitner & Nuclear Fission – A portrait of Lise Meitner, possibly with atomic models or a nuclear fission diagram.</h1><br> -->
-            <p>Lise Meitner, an Austrian physicist, co-discovered nuclear fission—the process that powers nuclear reactors and bombs. However, her male colleague, Otto Hahn, received the Nobel Prize in Chemistry (1944) while Meitner was ignored. She later became known as the “Mother of the Atomic Bomb”, despite opposing its use.</p>
-        </div>
-    </div>
+  </div>
 </div>
-    <div class="Topic1">
-        <div class="content1">
-            <h1>Lise Meitner & Nuclear Fission – A portrait of Lise Meitner, possibly with atomic models or a nuclear fission diagram.</h1><br>
-        </div>
-        <div class="content">
-        <div>
-            <img src="Topic2.webp" alt="Topic1" class="image1">
-        </div>
-        <div class="content1">
-            <!-- <h1>Mary Anning & Fossils – A depiction of Mary Anning fossil hunting on the Jurassic Coast, with an Ichthyosaurus skeleton.</h1><br> -->
-            <p>Mary Anning, a self-taught paleontologist in the early 1800s, discovered the first complete Ichthyosaurus and Plesiosaurus fossils, shaping the field of paleontology. However, as a working-class woman, she was denied membership in scientific societies, and her work was often credited to male scientists.</p>
-        </div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 1: AGILE BASICS -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>Agile Methodology — The Basics <span class="chip chip-blue">Foundation</span></h2>
+  </div>
+
+  <div class="highlight">
+    <strong>What is Agile?</strong> Agile is a <em>project management and software development approach</em> that delivers work in small, frequent increments instead of one big release. It's not just a process — it's a <strong>mindset</strong> focused on flexibility, collaboration, and customer satisfaction. Used by Google, Facebook, Amazon.
+  </div>
+
+  <div class="card">
+    <h3>❓ Why Agile? — The Core Problem</h3>
+    <p>Imagine a Food Ordering App. You build it using Waterfall. Midway, the customer says: "Add live tracking, add wallet, add ratings." In Waterfall you'd have to redo everything = costly and slow. Agile solves this by welcoming change at any stage.</p>
+    <div class="tags">
+      <span class="tag">Requirements change frequently</span>
+      <span class="tag">Market changes rapidly</span>
+      <span class="tag">Late changes are costly in Waterfall</span>
     </div>
+  </div>
+
+  <!-- MANIFESTO -->
+  <div class="card">
+    <h3>📜 Agile Manifesto — 4 Core Values</h3>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:14px;">Left side is valued MORE than right side (right side still matters!)</p>
+    <div class="manifesto">
+      <div class="m-side m-left">
+        <div class="m-label">✅ Valued MORE</div>
+        <div class="m-item">👤 Individuals and interactions</div>
+        <div class="m-item">💻 Working software</div>
+        <div class="m-item">🤝 Customer collaboration</div>
+        <div class="m-item">🔄 Responding to change</div>
+      </div>
+      <div class="m-center">OVER</div>
+      <div class="m-side m-right">
+        <div class="m-label">📋 Valued LESS</div>
+        <div class="m-item">🔧 Processes and tools</div>
+        <div class="m-item">📄 Comprehensive documentation</div>
+        <div class="m-item">📝 Contract negotiation</div>
+        <div class="m-item">📅 Following a plan</div>
+      </div>
     </div>
-    <div class="Topic1">
-        <div class="content1">
-            <h1>Percy Julian & Chemistry – An image of Percy Julian in a lab, working with test tubes or chemical formulas.</h1><br>
-        </div>
-        <div class="content">
-        <div>
-            <img src="Topic3.webp" alt="Topic1" class="image1">
-        </div>
-        <div class="content1">
-            <!-- <h1>Percy Julian & Chemistry – An image of Percy Julian in a lab, working with test tubes or chemical formulas.</h1><br> -->
-            <p>An African American chemist, Percy Julian developed synthetic cortisone, steroids, and birth control hormones from plant sources. His discoveries revolutionized medicine, yet racial barriers kept him from receiving widespread recognition during his lifetime.</p>
-        </div>
+    <div class="memory"><strong>Memory Trick:</strong> "I Work with Customers and Respond" — Individuals, Working software, Customer collaboration, Respond to change.</div>
+  </div>
+
+  <!-- 12 PRINCIPLES -->
+  <div class="card">
+    <h3>⚙️ 12 Agile Principles</h3>
+    <div class="principle"><span class="p-num">1</span><span class="p-text"><strong>Customer Satisfaction</strong> — Highest priority: early & continuous delivery of valuable software.</span></div>
+    <div class="principle"><span class="p-num">2</span><span class="p-text"><strong>Welcome Change</strong> — Even late in development, changing requirements = competitive advantage.</span></div>
+    <div class="principle"><span class="p-num">3</span><span class="p-text"><strong>Frequent Delivery</strong> — Deliver working software every few weeks to months. Prefer shorter timescale.</span></div>
+    <div class="principle"><span class="p-num">4</span><span class="p-text"><strong>Daily Collaboration</strong> — Business people and developers work together daily.</span></div>
+    <div class="principle"><span class="p-num">5</span><span class="p-text"><strong>Motivated Individuals</strong> — Build around motivated people; give support and trust.</span></div>
+    <div class="principle"><span class="p-num">6</span><span class="p-text"><strong>Face-to-Face Communication</strong> — Most efficient method of conveying information.</span></div>
+    <div class="principle"><span class="p-num">7</span><span class="p-text"><strong>Working Software = Progress</strong> — Primary measure of progress is working software.</span></div>
+    <div class="principle"><span class="p-num">8</span><span class="p-text"><strong>Sustainable Pace</strong> — Sponsors, developers, users maintain constant pace indefinitely.</span></div>
+    <div class="principle"><span class="p-num">9</span><span class="p-text"><strong>Technical Excellence</strong> — Continuous attention to technical excellence enhances agility.</span></div>
+    <div class="principle"><span class="p-num">10</span><span class="p-text"><strong>Simplicity</strong> — Art of maximising work NOT done is essential.</span></div>
+    <div class="principle"><span class="p-num">11</span><span class="p-text"><strong>Self-Organising Teams</strong> — Best architectures emerge from self-organising teams.</span></div>
+    <div class="principle"><span class="p-num">12</span><span class="p-text"><strong>Regular Reflection</strong> — Team reflects regularly and adjusts behaviour accordingly.</span></div>
+    <div class="memory"><strong>Quick recall:</strong> CS · FC · FD · DC · MI · FC · WS · SP · TE · SI · ST · RR (first letters of each)</div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div class="card">
+    <h3>📊 Agile vs Traditional (Waterfall) — Key Differences</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Parameter</th><th>Agile</th><th>Traditional (Waterfall)</th></tr>
+        <tr><td>Definition</td><td>Flexible, iterative</td><td>Sequential, fixed plan</td></tr>
+        <tr><td>Development & Testing</td><td>Happen simultaneously</td><td>Testing after development</td></tr>
+        <tr><td>Structure</td><td>Iterative & incremental</td><td>Linear & sequential</td></tr>
+        <tr><td>Communication</td><td>Face-to-face</td><td>Formal documentation</td></tr>
+        <tr><td>Phases</td><td>~3 (Planning, Dev, Testing)</td><td>5 (Req, Design, Impl, Test, Maint)</td></tr>
+        <tr><td>Cost</td><td>Lower (early issue detection)</td><td>Higher (late testing)</td></tr>
+        <tr><td>Requirements</td><td>Evolve continuously</td><td>Fixed before development</td></tr>
+        <tr><td>Cost Curve</td><td>FLAT (cheaper to change)</td><td>STEEP (costly to change late)</td></tr>
+      </table>
     </div>
+    <div class="highlight green"><strong>Why is Agile's cost curve flatter?</strong> Incremental delivery + Continuous testing + Continuous feedback. Example: Add "live tracking" in next sprint instead of redesigning entire system.</div>
+  </div>
+
+  <!-- WHEN TO USE -->
+  <div class="card">
+    <h3>✅ When to Use Agile / Applications</h3>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent3);font-weight:600;margin-bottom:8px;">✅ Suitable For:</p>
+        <ul><li>Projects with changing requirements</li><li>Web applications</li><li>Mobile apps</li><li>Startups</li><li>E-commerce systems</li><li>Complex, unclear requirements</li><li>Customer-focused projects</li><li>Small to medium teams</li></ul>
+      </div>
+      <div>
+        <p style="color:var(--accent5);font-weight:600;margin-bottom:8px;">❌ Not Suitable For:</p>
+        <ul><li>Stable-requirement systems</li><li>Government projects</li><li>Large distributed teams</li><li>Fixed-budget / fixed-scope contracts</li></ul>
+      </div>
     </div>
-    <div class="Topic1">
-        <div class="content1">
-            <h1>Henrietta Lacks & HeLa Cells – A respectful illustration of Henrietta Lacks, along with a microscopic view of HeLa cells.</h1><br>
-        </div>
-        <div class="content">
-        <div>
-            <img src="Topic4.webp" alt="Topic1" class="image1">
-        </div>
-        <div class="content1">
-            <!-- <h1>Henrietta Lacks & HeLa Cells – A respectful illustration of Henrietta Lacks, along with a microscopic view of HeLa cells.</h1><br> -->
-            <p>Henrietta Lacks’ cells, taken without her consent in 1951, became the first immortal human cell line (HeLa cells), leading to major medical breakthroughs like the polio vaccine and cancer treatments. Despite her immense contribution to science, she and her family received no recognition or compensation for decades.</p>
-        </div>
+  </div>
+
+  <!-- ADVANTAGES & DISADVANTAGES -->
+  <div class="grid2">
+    <div class="card">
+      <h3>👍 Advantages</h3>
+      <ul>
+        <li>Immediate feedback</li>
+        <li>Adapts to changing requirements</li>
+        <li>Face-to-face communication</li>
+        <li>Time-efficient, quick delivery</li>
+        <li>Customer satisfaction prioritised</li>
+        <li>Flexible and adaptable</li>
+        <li>Frequent changes managed well</li>
+      </ul>
     </div>
+    <div class="card">
+      <h3>👎 Disadvantages</h3>
+      <ul>
+        <li>Requires skilled, experienced team</li>
+        <li>Less documentation</li>
+        <li>No finite end</li>
+        <li>Fragmented output</li>
+      </ul>
     </div>
+  </div>
+
+  <!-- HUMAN FACTORS -->
+  <div class="card">
+    <h3>👥 Human Factors in Agile — Key Traits</h3>
+    <div class="sticky-row">
+      <div class="sticky"><strong>Competence</strong>Skills to do the job</div>
+      <div class="sticky green"><strong>Common Focus</strong>Shared goal</div>
+      <div class="sticky purple"><strong>Collaboration</strong>Work together</div>
+      <div class="sticky orange"><strong>Decision-making</strong>Ability to decide fast</div>
+      <div class="sticky pink"><strong>Fuzzy Problem Solving</strong>Handle ambiguity</div>
+      <div class="sticky"><strong>Mutual Trust</strong>Respect each other</div>
+      <div class="sticky green"><strong>Self-Organization</strong>Team manages itself</div>
+    </div>
+    <div class="memory"><strong>Memory:</strong> "C³ D-F M-S" → Competence, Common focus, Collaboration, Decision-making, Fuzzy problem-solving, Mutual trust, Self-organization</div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="card">
+    <h3>🛠️ Popular Agile Tools</h3>
+    <div class="tags">
+      <span class="tag">Jira</span><span class="tag">Trello</span><span class="tag">Asana</span>
+      <span class="tag">Pivotal Labs</span><span class="tag">ClickUp</span><span class="tag">Monday.com</span>
+      <span class="tag">CollabNet</span><span class="tag">Axosoft</span><span class="tag">Zoho Sprints</span>
+      <span class="tag">Active Collab</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 2: XP -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>Extreme Programming (XP) <span class="chip chip-purple">Framework</span></h2>
+  </div>
+
+  <div class="highlight purple">
+    <strong>What is XP?</strong> Proposed by <strong>Kent Beck in 1999</strong>. One of the most important Agile frameworks. Uses OOP approach. The idea: "If a practice is good, do it all the time — take it to the EXTREME." Uses 4 activities: Planning → Design → Coding → Testing.
+  </div>
+
+  <!-- VALUES -->
+  <div class="card">
+    <h3>💎 XP's 5 Values</h3>
+    <div class="grid2">
+      <div class="sticky"><strong>📢 Communication</strong>Enhance communication among team members and with customers</div>
+      <div class="sticky green"><strong>🎯 Simplicity</strong>Design only for immediate needs, not future assumptions</div>
+      <div class="sticky purple"><strong>💬 Feedback</strong>From 3 sources: software itself, customer, team members</div>
+      <div class="sticky orange"><strong>💪 Courage</strong>Discipline to design for today; accept future may change drastically</div>
+      <div class="sticky pink"><strong>🤝 Respect</strong>Among team members, stakeholders, and for the software itself</div>
+    </div>
+    <div class="memory"><strong>Memory: CSFCR</strong> — Communication, Simplicity, Feedback, Courage, Respect</div>
+  </div>
+
+  <!-- XP FRAMEWORK ACTIVITIES -->
+  <div class="card">
+    <h3>🔄 XP's 4 Framework Activities</h3>
+    <div class="phase-flow">
+      <div class="phase-box"><h4>1. Planning</h4><p>Gather requirements, user stories</p></div>
+      <div class="phase-box"><h4>2. Design</h4><p>KIS principle, CRC cards</p></div>
+      <div class="phase-box"><h4>3. Coding</h4><p>Pair programming, TDD</p></div>
+      <div class="phase-box"><h4>4. Testing</h4><p>Unit, acceptance, regression</p></div>
+    </div>
+  </div>
+
+  <!-- PLANNING STEPS -->
+  <div class="card">
+    <h3>📋 Phase 1: Planning (7 Steps)</h3>
+    <div class="principle"><span class="p-num">S1</span><span class="p-text"><strong>Listening</strong> — Developers understand customer needs, identify major outputs & system functionality.</span></div>
+    <div class="principle"><span class="p-num">S2</span><span class="p-text"><strong>User Stories</strong> — Requirements written as user stories by customer. Each story = feature + functionality + expected output. Stored on index cards.</span></div>
+    <div class="principle"><span class="p-num">S3</span><span class="p-text"><strong>Story Value Assignment</strong> — Customer assigns business value/priority to each story.</span></div>
+    <div class="principle"><span class="p-num">S4</span><span class="p-text"><strong>Story Cost Estimation</strong> — Dev team estimates cost in development weeks. If a story > 3 weeks → divide it into smaller stories.</span></div>
+    <div class="principle"><span class="p-num">S5</span><span class="p-text"><strong>Release Planning</strong> — Customer and devs decide stories for next release, delivery date, scope. Ordering strategies: all immediately / highest-value first / highest-risk first.</span></div>
+    <div class="principle"><span class="p-num">S6</span><span class="p-text"><strong>Project Velocity</strong> = Number of customer stories completed in a release. Used to estimate future schedules & detect over-commitment.</span></div>
+    <div class="principle"><span class="p-num">S7</span><span class="p-text"><strong>Continuous Planning</strong> — During development, customer may add/modify/split/remove stories. XP team revises release plans.</span></div>
+  </div>
+
+  <!-- DESIGN -->
+  <div class="card">
+    <h3>🎨 Phase 2: Design</h3>
+    <div class="highlight purple">XP follows the <strong>KIS Principle — Keep It Simple!</strong> Design only what is required NOW. No unnecessary features. Minimal documentation. Design evolves.</div>
+    <div class="grid3">
+      <div class="sticky purple">
+        <strong>CRC Cards</strong>
+        Primary XP design artifact.<br>
+        C = Classes<br>
+        R = Responsibilities<br>
+        C = Collaborators
+      </div>
+      <div class="sticky">
+        <strong>Spike Solution</strong>
+        When design is difficult:<br>
+        Quick prototype created → evaluated for feasibility → reduces risk
+      </div>
+      <div class="sticky green">
+        <strong>Refactoring</strong>
+        Improve code structure without changing behaviour. Improves design quality, simplifies structure, reduces defects.
+      </div>
+    </div>
+  </div>
+
+  <!-- CODING -->
+  <div class="card">
+    <h3>💻 Phase 3: Coding</h3>
+    <div class="grid2">
+      <div class="sticky">
+        <strong>Test-First Development (TDD)</strong>
+        Write unit tests BEFORE coding. Write only code needed to pass tests.
+      </div>
+      <div class="sticky purple">
+        <strong>Pair Programming</strong>
+        Driver: writes code<br>
+        Navigator: reviews & guides<br>
+        → Real-time review, knowledge sharing
+      </div>
+      <div class="sticky green">
+        <strong>Coding Standards</strong>
+        Common conventions, collective code ownership, improved readability.
+      </div>
+      <div class="sticky orange">
+        <strong>Continuous Integration</strong>
+        Code integrated daily. Automated builds & tests. Early error detection.
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTING -->
+  <div class="card">
+    <h3>🧪 Phase 4: Testing</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Test Type</th><th>When</th><th>Purpose</th></tr>
+        <tr><td>Unit Testing</td><td>Created BEFORE coding</td><td>Immediate feedback on individual units</td></tr>
+        <tr><td>Regression Testing</td><td>After every refactor</td><td>Ensure changes don't break existing code</td></tr>
+        <tr><td>Integration Testing</td><td>Daily</td><td>Combine unit tests, test full system</td></tr>
+        <tr><td>Acceptance Testing</td><td>After sprint</td><td>Defined by customer, validates user stories</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ADV / DIS -->
+  <div class="grid2">
+    <div class="card">
+      <h3>👍 Advantages of XP</h3>
+      <ul>
+        <li>High software quality</li>
+        <li>Early defect detection</li>
+        <li>Handles changing requirements</li>
+        <li>Continuous customer involvement</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>👎 Limitations of XP</h3>
+      <ul>
+        <li>Requires experienced developers</li>
+        <li>Requires customer availability</li>
+        <li>Pair programming culture may be difficult</li>
+        <li>Less suitable for large distributed teams</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 3: SCRUM -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>Scrum <span class="chip chip-green">Most Popular Framework</span></h2>
+  </div>
+
+  <div class="highlight green">
+    <strong>What is Scrum?</strong> An Agile framework for developing complex products in uncertain, changing environments. Provides transparency (to team, customer, management). Used by Google, Microsoft, IBM, Yahoo!, TCS, Wipro, Infosys, Nokia, etc.
+  </div>
+
+  <!-- ROLES EVENTS ARTIFACTS -->
+  <div class="card">
+    <h3>🏗️ Scrum Framework — 3 Pillars</h3>
+    <div class="grid3">
+      <div class="sticky green">
+        <strong>👥 ROLES (3)</strong>
+        • Product Owner<br>
+        • Scrum Master<br>
+        • Development Team
+      </div>
+      <div class="sticky">
+        <strong>📅 EVENTS (4)</strong>
+        • Sprint Planning Meeting<br>
+        • Daily Scrum<br>
+        • Sprint Review<br>
+        • Sprint Retrospective
+      </div>
+      <div class="sticky purple">
+        <strong>📦 ARTIFACTS (3)</strong>
+        • Product Backlog<br>
+        • Sprint Backlog<br>
+        • Burndown Chart
+      </div>
+    </div>
+  </div>
+
+  <!-- ROLES DETAIL -->
+  <div class="card">
+    <h3>👥 Scrum Roles in Detail</h3>
+    <div class="role-card">
+      <div class="role-icon">🎯</div>
+      <div>
+        <div class="role-name">Product Owner</div>
+        <div class="role-desc">Owns the product vision. Gets input from all stakeholders. Creates and maintains the <strong>Product Backlog</strong> — single prioritised list of features, based on business value and risk. Can add, remove, reorder items.</div>
+      </div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">🛡️</div>
+      <div>
+        <div class="role-name">Scrum Master</div>
+        <div class="role-desc"><strong>Serves</strong> the team (removes impediments), <strong>Protects</strong> the team (from outside disruptions), <strong>Teaches</strong> Scrum. Without ScrumMaster → high risk of failure.</div>
+      </div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">👨‍💻</div>
+      <div>
+        <div class="role-name">Development Team</div>
+        <div class="role-desc">Ideal size: <strong>7 ± 2 people</strong>. Cross-functional (designers + coders + testers). Self-organizing and self-managing. Everyone contributes based on competency.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTIFACTS DETAIL -->
+  <div class="card">
+    <h3>📦 Scrum Artifacts in Detail</h3>
+    <div class="highlight green">
+      <strong>Product Backlog</strong> — Single master list of ALL features required. Prioritised by Product Owner based on business value + risk. Constantly revised. Items at top = done soonest.
+    </div>
+    <div class="highlight">
+      <strong>Sprint Backlog</strong> — Tasks selected for THIS sprint + hours remaining for each task. Updated daily. Tracks progress during the sprint.
+    </div>
+    <div class="highlight purple">
+      <strong>Burndown Chart</strong> — Graph showing total remaining work (hours) each day. Goes DOWN as work is completed. Helps team monitor sprint progress. If line is above ideal → team is behind.
+    </div>
+    <div style="margin-top:12px;background:var(--surface2);border-radius:10px;padding:14px;">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:6px;">📊 Example Sprint Backlog:</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Task</th><th>Initial</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th></tr>
+          <tr><td>Code UI</td><td>16h</td><td>16</td><td>12</td><td>8</td><td>4</td><td>0</td></tr>
+          <tr><td>Code middle tier</td><td>8h</td><td>8</td><td>6</td><td>4</td><td>2</td><td>0</td></tr>
+          <tr><td>Test middle tier</td><td>12h</td><td>12</td><td>12</td><td>8</td><td>4</td><td>0</td></tr>
+          <tr><td>Write online help</td><td>4h</td><td>4</td><td>4</td><td>2</td><td>0</td><td>0</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPRINT -->
+  <div class="card">
+    <h3>⚡ The Sprint — Heart of Scrum</h3>
+    <ul>
+      <li>Fixed time period: typically <strong>1–4 weeks</strong> (recommend starting with 2 weeks)</li>
+      <li>Sprints occur one after another — <strong>no down-time between sprints</strong></li>
+      <li>During the sprint: <strong>NO CHANGES</strong> to what was committed or end-date</li>
+      <li>If something major comes up, Product Owner can <strong>terminate the sprint</strong> and start a new one</li>
+      <li>Goal: produce a <strong>Potentially Shippable Product</strong> — fully designed, implemented, and tested</li>
+    </ul>
+    <div class="memory"><strong>Key rule:</strong> Sprint = Fixed commitment + Fixed time + No change in scope. This gives the team FOCUS and STABILITY.</div>
+  </div>
+
+  <!-- EVENTS DETAIL -->
+  <div class="card">
+    <h3>📅 Scrum Events in Detail</h3>
+
+    <div class="highlight">
+      <strong>1. Sprint Planning Meeting</strong><br>
+      Before each sprint. Team selects items from top of Product Backlog. Creates task-level plan. Estimates total hours vs available hours. Everyone participates regardless of experience. Important: Product Owner must NOT pressure team to over-commit.
+    </div>
+
+    <div class="highlight green">
+      <strong>2. Daily Scrum (Stand-up)</strong><br>
+      Every day, &lt;15 minutes. Standing up (to keep it fast). Each person answers 3 things only:<br>
+      ① What did I do yesterday?&nbsp; ② What will I do today?&nbsp; ③ Any blockers?<br>
+      ScrumMaster notes blocks and resolves them afterwards. Others can attend but cannot speak.
+    </div>
+
+    <div class="highlight purple">
+      <strong>3. Sprint Review</strong><br>
+      End of sprint. Product Owner + Team + ScrumMaster + Stakeholders. Demo of what was built. Product Owner gathers feedback → incorporated back into Product Backlog.
+    </div>
+
+    <div class="highlight orange">
+      <strong>4. Sprint Retrospective</strong><br>
+      After Sprint Review. Team + PO + ScrumMaster. Review HOW they worked (process). Identify improvements. Mechanism for continuous improvement. Surface critical problems to management.
+    </div>
+  </div>
+
+  <!-- EXAMPLE PRODUCT BACKLOG -->
+  <div class="card">
+    <h3>📋 Example: Hotel Reservation System — Product Backlog</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Backlog Item (User Story)</th><th>Story Points</th></tr>
+        <tr><td>Allow a guest to make a reservation</td><td>3</td></tr>
+        <tr><td>As a guest, I want to cancel a reservation</td><td>5</td></tr>
+        <tr><td>As a guest, I want to change reservation dates</td><td>3</td></tr>
+        <tr><td>As a hotel employee, I can run RevPAR reports</td><td>8</td></tr>
+        <tr><td>Improve exception handling</td><td>8</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>27</strong></td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 4: ASD -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Adaptive Software Development (ASD) <span class="chip chip-orange">Framework</span></h2>
+  </div>
+
+  <div class="highlight orange">
+    <strong>What is ASD?</strong> Proposed by <strong>Jim Highsmith</strong>. Agile methodology for complex and uncertain software systems. Focuses on adaptation, collaboration, and learning. Software is developed in repeated cycles (increments). ASD focuses on adapting to change instead of following rigid plans.
+  </div>
+
+  <div class="card">
+    <h3>🔑 Key Ideas of ASD</h3>
+    <div class="grid2">
+      <ul>
+        <li>Emphasises human collaboration</li>
+        <li>Encourages self-organising teams</li>
+        <li>Supports continuous learning</li>
+        <li>Accepts changing requirements (like RAD)</li>
+      </ul>
+      <div class="highlight orange">ASD focuses on <strong>adapting to change</strong> instead of following rigid plans. The team learns from every cycle.</div>
+    </div>
+  </div>
+
+  <!-- ASD LIFECYCLE -->
+  <div class="card">
+    <h3>🔁 ASD Life Cycle — 3 Phases (REPEATING CYCLE)</h3>
+    <div class="phase-flow">
+      <div class="phase-box"><h4>Speculate</h4><p>Replaces traditional planning. High-level adaptive cycle planning.</p></div>
+      <div class="phase-box"><h4>Collaborate</h4><p>Team works together to build software.</p></div>
+      <div class="phase-box"><h4>Learn</h4><p>Evaluate results, gather feedback, improve.</p></div>
+    </div>
+    <div class="memory"><strong>Memory: S-C-L</strong> → Speculate, Collaborate, Learn. Then repeat!</div>
+
+    <div class="highlight orange">
+      <strong>Phase 1: Speculation</strong><br>
+      Replaces traditional detailed planning. Uses: customer's mission statement + project constraints + basic requirements → defines set of release cycles (time-boxed plan). Purpose: plan at high level, allow adjustments as project progresses.
+    </div>
+    <div class="highlight">
+      <strong>Phase 2: Collaboration</strong><br>
+      Team develops and tests software components. Key aspects: strong communication, teamwork & trust, customer interaction, shared problem solving.
+    </div>
+    <div class="highlight green">
+      <strong>Phase 3: Learning</strong><br>
+      Activities: Focus groups (customer feedback on increment), Technical reviews (design/implementation), Project postmortems (what worked, what didn't). Purpose: improve understanding + adjust plans for next cycle.
+    </div>
+  </div>
+
+  <!-- ADVANTAGES -->
+  <div class="grid2">
+    <div class="card">
+      <h3>👍 Advantages of ASD</h3>
+      <ul>
+        <li>Handles changing requirements effectively</li>
+        <li>Encourages team collaboration</li>
+        <li>Supports continuous improvement</li>
+        <li>Reduces project risks (incremental)</li>
+        <li>Suitable for complex projects</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📌 When to Use ASD</h3>
+      <ul>
+        <li>Requirements are uncertain or evolving</li>
+        <li>Projects are complex (research-based)</li>
+        <li>Continuous learning and adaptation required</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 5: DSDM -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>Dynamic Systems Development Method (DSDM) <span class="chip chip-pink">Framework</span></h2>
+  </div>
+
+  <div class="highlight pink">
+    <strong>What is DSDM?</strong> Agile approach that: provides a framework for building &amp; maintaining systems, meets tight time constraints, uses incremental prototyping, operates in controlled project environment. Maintained by the <strong>DSDM Consortium</strong> (www.dsdm.org).
+  </div>
+
+  <div class="card">
+    <h3>📐 DSDM Philosophy — The Modified Pareto Principle (80/20 Rule)</h3>
+    <div class="highlight pink"><strong>Core Idea:</strong> 80% of application functionality can be delivered in 20% of total development time. Focus on most important features first. Remaining features added in later iterations.</div>
+    <div style="margin-top:12px;">
+      <p style="color:var(--accent5);font-weight:600;margin-bottom:8px;">📦 E-commerce Example:</p>
+      <div class="grid2">
+        <div class="sticky pink">
+          <strong>First 20% time delivers (80% value):</strong>
+          User login, Product catalog, Add to cart, Checkout
+        </div>
+        <div class="sticky">
+          <strong>Later iterations add:</strong>
+          Product recommendations, Advanced search, Analytics dashboards
+        </div>
+      </div>
+    </div>
+    <div class="memory"><strong>Key insight:</strong> In each iteration, only enough work is done to move to next increment. Remaining details completed later when more requirements are known.</div>
+  </div>
+
+  <!-- DSDM LIFECYCLE -->
+  <div class="card">
+    <h3>🔄 DSDM Life Cycle — Phases</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Phase</th><th>Description</th></tr>
+        <tr><td><strong>Pre-Project</strong></td><td>Ensures only right projects are started. Evaluates suitability. Prepares environment.</td></tr>
+        <tr><td><strong>Feasibility Study</strong></td><td>Establishes basic business requirements. Identifies constraints. Determines if project is viable for DSDM.</td></tr>
+        <tr><td><strong>Business Study</strong></td><td>Identifies functional + information requirements. Defines application architecture. Identifies maintainability requirements. Goal: ensure business value.</td></tr>
+        <tr><td><strong>Functional Model Iteration</strong></td><td>Produces incremental prototypes. Demonstrates system to customers. Gathers additional requirements. Prototypes → requirement validation.</td></tr>
+        <tr><td><strong>Design and Build Iteration</strong></td><td>Revisits prototypes. Ensures they're properly engineered. May run concurrently with Functional Model Iteration.</td></tr>
+        <tr><td><strong>Implementation</strong></td><td>Places latest software increment into operational environment. May not be 100% complete. Users may request changes → returns to Functional Model Iteration.</td></tr>
+        <tr><td><strong>Post-Project</strong></td><td>System maintenance. Supporting operational environment. Future changes/improvements.</td></tr>
+      </table>
+    </div>
+    <div class="memory"><strong>Memory: Pre–FS–BS–FMI–DBI–Impl–Post</strong></div>
+  </div>
+
+  <div class="card">
+    <h3>🔗 Integration with Other Agile Methods</h3>
+    <p>DSDM can combine with: <strong>XP</strong> (for technical practices) and <strong>ASD</strong> (for collaboration and self-organising team concepts).</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 6: FDD -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2>Feature Driven Development (FDD) <span class="chip chip-blue">Framework</span></h2>
+  </div>
+
+  <div class="highlight">
+    <strong>What is FDD?</strong> Proposed by <strong>Peter Coad</strong>, extended by <strong>Stephen Palmer and John Felsing</strong>. Practical process model for OOP software engineering. Adaptive agile process. Suitable for <strong>moderately large and complex software projects</strong>.
+  </div>
+
+  <!-- PHILOSOPHY -->
+  <div class="card">
+    <h3>💡 Philosophy of FDD — 3 Key Ideas</h3>
+    <div class="principle"><span class="p-num">1</span><span class="p-text"><strong>Collaboration</strong> — Team members collaborate closely.</span></div>
+    <div class="principle"><span class="p-num">2</span><span class="p-text"><strong>Feature-Based Decomposition</strong> — Manage complexity using feature decomposition, then integrate software increments.</span></div>
+    <div class="principle"><span class="p-num">3</span><span class="p-text"><strong>Multiple Communication Methods</strong> — Verbal, graphical, and text-based methods.</span></div>
+  </div>
+
+  <!-- WHAT IS A FEATURE -->
+  <div class="card">
+    <h3>🌟 What is a "Feature" in FDD?</h3>
+    <div class="highlight">
+      <strong>Feature =</strong> A client-valued function that can be implemented in <strong>two weeks or less</strong>.<br>
+      Template format: <code style="background:rgba(255,255,255,0.08);padding:3px 8px;border-radius:4px;">&lt;action&gt; the &lt;result&gt; &lt;by|for|of|to&gt; a(n) &lt;object&gt;</code>
+    </div>
+    <div class="grid3">
+      <div class="sticky"><strong>Example Feature</strong>"Add the product to shopping cart"</div>
+      <div class="sticky green"><strong>Example Feature</strong>"Display the technical specifications of the product"</div>
+      <div class="sticky purple"><strong>Example Feature</strong>"Store the shipping information for the customer"</div>
+    </div>
+    <p style="margin-top:12px;font-size:13.5px;"><strong>Feature Set</strong> = Group of related features. Template: <em>"&lt;action&gt;-ing a(n) &lt;object&gt;"</em>. Example: "Making a product sale" → includes add-to-cart, store shipping info, display product details.</p>
+  </div>
+
+  <!-- ROLES -->
+  <div class="card">
+    <h3>👥 FDD Roles</h3>
+    <div class="role-card">
+      <div class="role-icon">📊</div>
+      <div><div class="role-name">Project Manager</div><div class="role-desc">Overall project planning and progress tracking. Ensures features completed on schedule.</div></div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">🏛️</div>
+      <div><div class="role-name">Chief Architect</div><div class="role-desc">Designs overall system architecture. Guides team during domain modeling.</div></div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">🗂️</div>
+      <div><div class="role-name">Development Manager</div><div class="role-desc">Manages development team. Ensures coding standards and processes followed.</div></div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">👨‍💻</div>
+      <div><div class="role-name">Chief Programmer</div><div class="role-desc">Leads the feature team for a specific feature. Coordinates design and development work.</div></div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">👥</div>
+      <div><div class="role-name">Feature Team</div><div class="role-desc">Temporary team formed to develop a feature. Includes class owners of relevant classes.</div></div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">🔤</div>
+      <div><div class="role-name">Class Owner</div><div class="role-desc">Each class has one responsible developer. That dev maintains and updates that class.</div></div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">🏢</div>
+      <div><div class="role-name">Domain Expert</div><div class="role-desc">Provides business knowledge. Helps developers understand problem domain.</div></div>
+    </div>
+  </div>
+
+  <!-- 5 PROCESSES -->
+  <div class="card">
+    <h3>🔄 FDD's 5 Development Processes</h3>
+    <div class="principle"><span class="p-num">P1</span><span class="p-text"><strong>Develop an Overall Model</strong> — Understand project domain. Small groups create domain models → merged into one overall system model. (Object model showing Customer, Product, Order, Payment)</span></div>
+    <div class="principle"><span class="p-num">P2</span><span class="p-text"><strong>Build a Feature List</strong> — Create list of features from domain model. Each feature ≤ 2 weeks. Large features divided into smaller ones.</span></div>
+    <div class="principle"><span class="p-num">P3</span><span class="p-text"><strong>Plan by Feature</strong> — Prioritise features. Assign work to developers. Distribute feature sets. Plan based on complexity and dependencies.</span></div>
+    <div class="principle"><span class="p-num">P4</span><span class="p-text"><strong>Design by Feature</strong> — Create detailed design (sequence diagrams). Refine system model. Design inspection with team. Each iteration typically = 2 weeks.</span></div>
+    <div class="principle"><span class="p-num">P5</span><span class="p-text"><strong>Build by Feature</strong> — Implement the feature. Code inspection. Feature tested. Integrated into main build. Features > 2 weeks → break into smaller features.</span></div>
+    <div class="memory"><strong>Memory: D-B-P-D-B</strong> → Develop model, Build feature list, Plan, Design, Build. (The last 2 repeat per feature.)</div>
+  </div>
+
+  <!-- PROJECT MANAGEMENT -->
+  <div class="card">
+    <h3>📊 FDD Project Management — 6 Milestones</h3>
+    <div class="tags">
+      <span class="tag">① Design Walkthrough</span>
+      <span class="tag">② Design</span>
+      <span class="tag">③ Design Inspection</span>
+      <span class="tag">④ Code</span>
+      <span class="tag">⑤ Code Inspection</span>
+      <span class="tag">⑥ Promote to Build</span>
+    </div>
+  </div>
+
+  <!-- QUALITY -->
+  <div class="card">
+    <h3>🏆 Quality Assurance in FDD</h3>
+    <ul>
+      <li>Incremental development strategy</li>
+      <li>Design inspections</li>
+      <li>Code inspections</li>
+      <li>Software quality assurance audits</li>
+      <li>Metrics collection</li>
+      <li>Use of patterns for analysis, design, and construction</li>
+    </ul>
+  </div>
+
+  <!-- BEST PRACTICES -->
+  <div class="card">
+    <h3>✅ FDD Best Practices</h3>
+    <div class="tags">
+      <span class="tag">Domain object modeling</span><span class="tag">Developing by feature</span>
+      <span class="tag">Individual class ownership</span><span class="tag">Feature teams</span>
+      <span class="tag">Inspections</span><span class="tag">Configuration management</span>
+      <span class="tag">Regular builds</span><span class="tag">Progress visibility</span>
+    </div>
+  </div>
+
+  <!-- ONLINE SHOPPING EXAMPLE -->
+  <div class="card">
+    <h3>🛒 Example: Online Shopping System in FDD</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Process</th><th>What Happens</th></tr>
+        <tr><td>1. Overall Model</td><td>Identify objects: Customer, Product, Order, Payment. Create domain class diagram. Customer places Order → Order contains Product → Order uses Payment.</td></tr>
+        <tr><td>2. Feature List</td><td>Register customer, Login customer, Search product, Display product detail, Add product to cart, Place order, Make payment</td></tr>
+        <tr><td>3. Plan by Feature</td><td>Register customer → Dev A; Search product → Dev B; Add to cart → Dev C; Payment → Dev D</td></tr>
+        <tr><td>4. Design by Feature</td><td>"Add to cart" → Identify classes (Cart, Product, Customer). Customer selects product → System adds to cart → Cart updates total items. Create sequence diagram.</td></tr>
+        <tr><td>5. Build by Feature</td><td>Developer writes code → Code inspection → Feature tested → Added to main build.</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 7: LEAN / LSD -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section" id="s7">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2>Lean Software Development (LSD) <span class="chip chip-green">Framework</span></h2>
+  </div>
+
+  <div class="highlight green">
+    <strong>What is LSD?</strong> Agile approach derived from <strong>lean manufacturing concepts</strong> (originated from <strong>Toyota Production System</strong>). Focuses on improving efficiency, reducing waste, and delivering high-value software quickly. Uses <strong>Minimum Viable Product (MVP)</strong> approach. Goal: produce MORE value with FEWER resources.
+  </div>
+
+  <!-- 7 PRINCIPLES -->
+  <div class="card">
+    <h3>⚙️ 7 Key Principles of LSD</h3>
+    <div class="principle"><span class="p-num">1</span><span class="p-text"><strong>Eliminate Waste</strong> — Remove anything that doesn't add value to the customer or product.</span></div>
+    <div class="principle"><span class="p-num">2</span><span class="p-text"><strong>Build Quality In</strong> — Quality built during development, not tested in afterwards. Use testing, code reviews, continuous integration.</span></div>
+    <div class="principle"><span class="p-num">3</span><span class="p-text"><strong>Amplify Learning</strong> — Software development is a learning process. Code reviews, meetings, pair programming increase knowledge.</span></div>
+    <div class="principle"><span class="p-num">4</span><span class="p-text"><strong>Defer Decisions</strong> (Decide as Late as Possible) — Decisions based on facts, not assumptions. Keep options open. Adapt to change.</span></div>
+    <div class="principle"><span class="p-num">5</span><span class="p-text"><strong>Deliver Fast</strong> — Release MVP quickly. Frequent releases. Speed reduces waste, increases customer satisfaction.</span></div>
+    <div class="principle"><span class="p-num">6</span><span class="p-text"><strong>Empower the Team</strong> (Respect) — Developers empowered, not strictly controlled. Collaboration, communication. Team participates in decisions.</span></div>
+    <div class="principle"><span class="p-num">7</span><span class="p-text"><strong>Optimise the Whole</strong> — Focus on improving entire system, not just parts. Avoid optimising one component at cost of overall performance.</span></div>
+    <div class="memory"><strong>Memory: EW-BQ-AL-DD-DF-ET-OW</strong> — Eliminate Waste, Build Quality, Amplify Learning, Defer Decisions, Deliver Fast, Empower Team, Optimize Whole</div>
+  </div>
+
+  <!-- 7 WASTES -->
+  <div class="card">
+    <h3>🗑️ 7 Types of Waste (to ELIMINATE)</h3>
+    <div class="waste-item"><div class="waste-num">1</div><div class="waste-text"><strong>Partially Done Work</strong><span>Work started but not completed. E.g., Code waiting for testing.</span></div></div>
+    <div class="waste-item"><div class="waste-num">2</div><div class="waste-text"><strong>Extra Processes</strong><span>Work that doesn't add value. E.g., Unused documentation, unnecessary approvals.</span></div></div>
+    <div class="waste-item"><div class="waste-num">3</div><div class="waste-text"><strong>Extra Features</strong><span>Features not required or "nice-to-have" only. Also called gold plating.</span></div></div>
+    <div class="waste-item"><div class="waste-num">4</div><div class="waste-text"><strong>Task Switching</strong><span>Multitasking between projects = context-switching penalty. E.g., working on multiple projects.</span></div></div>
+    <div class="waste-item"><div class="waste-num">5</div><div class="waste-text"><strong>Waiting</strong><span>Delays from waiting for reviews, approvals. E.g., waiting for prototype review.</span></div></div>
+    <div class="waste-item"><div class="waste-num">6</div><div class="waste-text"><strong>Motion</strong><span>Effort to communicate between teams. E.g., distributed teams, handoffs.</span></div></div>
+    <div class="waste-item"><div class="waste-num">7</div><div class="waste-text"><strong>Defects</strong><span>Errors requiring correction. E.g., requirement defects, software bugs.</span></div></div>
+    <div class="memory"><strong>Memory: PP-EP-EF-TS-W-M-D</strong> → Partially done, Extra process, Extra feature, Task switching, Waiting, Motion, Defects</div>
+  </div>
+
+  <!-- FOOD DELIVERY EXAMPLE -->
+  <div class="card">
+    <h3>🍕 Example: Food Delivery App — LSD Applied</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Principle</th><th>How Applied</th></tr>
+        <tr><td>1. Eliminate Waste</td><td>Skip restaurant chat, loyalty games, advanced analytics at start. Focus only on login, menu browsing, order, payment.</td></tr>
+        <tr><td>2. Build Quality In</td><td>Test if orders placed correctly and payments processed safely BEFORE release.</td></tr>
+        <tr><td>3. Amplify Learning</td><td>Users say live tracking is important → add it in next version.</td></tr>
+        <tr><td>4. Defer Decisions</td><td>Use simple payment gateway first; decide on multiple options later.</td></tr>
+        <tr><td>5. Deliver Fast</td><td>Release MVP: order food from nearby restaurants, even without advanced features.</td></tr>
+        <tr><td>6. Respect the Team</td><td>Developer suggests improving checkout → team implements it.</td></tr>
+        <tr><td>7. Optimise the Whole</td><td>Improve not just the app, but restaurant response time and delivery coordination too.</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- QUICK REVISION SUMMARY -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section" id="summary">
+  <div class="section-header">
+    <span class="section-num">★</span>
+    <h2>Quick Revision — All Agile Models at a Glance</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Model</th><th>Proposed By</th><th>Core Idea</th><th>Key Feature</th></tr>
+      <tr><td><strong>XP</strong></td><td>Kent Beck (1999)</td><td>Take best practices to the extreme</td><td>Pair programming, TDD, 4 activities</td></tr>
+      <tr><td><strong>Scrum</strong></td><td>—</td><td>Work in short sprints with fixed roles</td><td>Sprint, Product/Sprint Backlog, Burndown</td></tr>
+      <tr><td><strong>ASD</strong></td><td>Jim Highsmith</td><td>Speculate → Collaborate → Learn</td><td>3-phase repeating cycle, complex projects</td></tr>
+      <tr><td><strong>DSDM</strong></td><td>DSDM Consortium</td><td>80% functionality in 20% time (Pareto)</td><td>7-phase lifecycle, incremental prototyping</td></tr>
+      <tr><td><strong>FDD</strong></td><td>Peter Coad</td><td>Build feature by feature (each ≤ 2 weeks)</td><td>5 processes, 6 milestones, class ownership</td></tr>
+      <tr><td><strong>LSD</strong></td><td>Toyota Production System</td><td>Eliminate waste, deliver value fast</td><td>7 principles, 7 types of waste, MVP</td></tr>
+    </table>
+  </div>
+
+  <div class="highlight green">
+    <strong>🧠 Final Memory Tips for Exam:</strong><br>
+    • Agile Manifesto = 4 values + 12 principles<br>
+    • XP = Kent Beck + CSFCR values + 4 activities (Plan-Design-Code-Test)<br>
+    • Scrum = 3 Roles + 4 Events + 3 Artifacts<br>
+    • ASD = Jim Highsmith + Speculate-Collaborate-Learn<br>
+    • DSDM = Pareto 80/20 + 7 phases<br>
+    • FDD = Peter Coad + 5 processes + feature ≤ 2 weeks<br>
+    • LSD = Toyota + 7 principles + 7 wastes + MVP
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  📚 SEPP Agile Study Guide — DDU CE Semester IV &nbsp;|&nbsp; All 146 pages covered &nbsp;|&nbsp; Good luck on your exam! 🍀
+</div>
+
 </body>
 </html>
